@@ -1,9 +1,6 @@
 name: Publish RiftPvP archived development releases
 
 on:
-  push:
-    paths:
-      - '.github/workflows/publish-archive-releases.yml'
   workflow_dispatch:
 
 permissions:
@@ -17,7 +14,7 @@ jobs:
     steps:
       - name: Publish historical compiled builds with changelogs
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         shell: bash
         run: |
@@ -63,7 +60,7 @@ jobs:
 
           **Included:** Original build JAR attached below, and source code at the exact source commit used for the build.
 
-          **Build provenance:** [GitHub Actions run](https://github.com/$REPO/actions/runs/$run) (commit `$sha`).
+          **Build provenance:** [GitHub Actions run](https://github.com/$REPO/actions/runs/$run) (commit $sha).
 
           ## Changes in this snapshot
           EOF
@@ -149,7 +146,7 @@ jobs:
           - Redesigned the 6-row post-match results GUI.
           - Added winner/result display, fight duration, hits, damage, healing, best combo and armour information.
           - Shows Ranked Elo changes for Ranked fights, and Rematch / Requeue / Lobby / Spectate / Close actions.
-          - Allows reopening the latest recorded result through `/fightresult`.
+          - Allows reopening the latest recorded result through the fightresult command.
           - Organised the repository into browsable Maven source, configs and CI regression checks.
           - **Current development snapshot;** not a stable/public multiplayer-tested release.
           EOF
