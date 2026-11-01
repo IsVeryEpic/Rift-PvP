@@ -1,0 +1,176 @@
+name: Publish RiftPvP archived development releases
+
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-archive-releases.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Publish historical compiled builds with changelogs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p archived-releases
+
+          while IFS='|' read -r tag run sha title; do
+            [ -z "$tag" ] && continue
+            echo "::group::Release $tag"
+            if gh release view "$tag" --repo "$REPO" >/dev/null 2>&1; then
+              echo "Already published: $tag"
+              echo "::endgroup::"
+              continue
+            fi
+
+            dir="archived-releases/$tag"
+            mkdir -p "$dir"
+            if [ "$run" = "41345178389" ]; then
+              artifact="RiftPvP-1.3.4-Paper-26.1.2-TEST-BUILD"
+            else
+              artifact="RiftPvP-1.3.4-SNAPSHOT-UNTESTED"
+            fi
+            gh run download "$run" --repo "$REPO" -n "$artifact" -D "$dir"
+            count=$(find "$dir" -type f -name '*.jar' | wc -l)
+            if [ "$count" -ne 1 ]; then
+              echo "Expected exactly one JAR for $tag, found $count" >&2
+              exit 1
+            fi
+            input_jar=$(find "$dir" -type f -name '*.jar' -print -quit)
+            asset="archived-releases/RiftPvP-$tag.jar"
+            cp "$input_jar" "$asset"
+            unzip -tq "$asset" > /dev/null
+            unzip -Z1 "$asset" | grep -qx 'plugin.yml'
+            sha256sum "$asset"
+
+            notes="archived-releases/$tag-notes.md"
+            cat > "$notes" <<EOF
+          # RiftPvP $tag
+
+          Development snapshot for **Paper 26.1.2 / Java 25**. The version declared inside the plugin remains **1.3.4-SNAPSHOT**.
+
+          **Status:** Historical prerelease, not a verified stable production release. This snapshot was compiled by GitHub Actions but has not passed complete in-game two-player regression testing. Older releases may contain known bugs corrected in later builds.
+
+          **Included:** Original build JAR attached below, and source code at the exact source commit used for the build.
+
+          **Build provenance:** [GitHub Actions run](https://github.com/$REPO/actions/runs/$run) (commit `$sha`).
+
+          ## Changes in this snapshot
+          EOF
+
+            case "$tag" in
+              v1.3.4-dev.01-stage4)
+                cat >> "$notes" <<'EOF'
+          - Initial compiled Stage 4 development baseline.
+          - Core RiftPvP kit, RTP queue, duels, lobby and player-management functionality.
+          - Starting point for later Stage 8 work; many subsequent additions are absent.
+          - Superseded by later development builds.
+          EOF
+                ;;
+              v1.3.4-dev.02-stage8)
+                cat >> "$notes" <<'EOF'
+          - First successful Java 25 compilation of the expanded Stage 8 source.
+          - Added plugin-data backups and staged rollback, maintenance mode, reconnect handling, first-join tutorial, custom-kit validation and per-kit mode controls.
+          - Includes earlier ranked, spectator, audit and custom-kit development work.
+          - Superseded by subsequent fixes; not multiplayer-tested.
+          EOF
+                ;;
+              v1.3.4-dev.03-menu-fix)
+                cat >> "$notes" <<'EOF'
+          - Reworked lobby hotbar menu interaction handling.
+          - Replaced the WorldEdit-conflicting Compass menu shortcut.
+          - Replaced the throwable Ender Pearl RTP shortcut with a non-throwable item.
+          - Corrected Rift Menu inventory-opening API usage.
+          - Superseded by later builds.
+          EOF
+                ;;
+              v1.3.4-dev.04-npc-fix)
+                cat >> "$notes" <<'EOF'
+          - Added click actions for Spectate, Hub and Ranked lobby NPCs.
+          - Spectate provides an active-fight selector; Ranked opens kit selection; Hub opens Rift Menu.
+          - Added NPC binding support for existing mannequins.
+          - Superseded by later builds.
+          EOF
+                ;;
+              v1.3.4-dev.05-build-mode)
+                cat >> "$notes" <<'EOF'
+          - Added a personal admin toggle to hide lobby shortcuts while building.
+          - Added inventory-safe re-enabling of lobby items from admin controls.
+          - Changed mid-fight disconnects to immediate match resolution (subsequently reversed after reconnect problems).
+          - **Known limitation:** Reconnect grace does not work as intended in this snapshot; use a newer build.
+          EOF
+                ;;
+              v1.3.4-dev.06-ranked-plains)
+                cat >> "$notes" <<'EOF'
+          - Added Ranked kit-selection GUI with waiting counts, kit ranks, Elo and leave-queue action.
+          - Routed Ranked command, NPC and Rift Menu to the same selector.
+          - Restricted Ranked fight spawns to configurable Plains-type biomes.
+          - **Known limitation:** Ranked matchmaking could fail to find a suitable match location; improved later.
+          EOF
+                ;;
+              v1.3.4-dev.07-match-recovery)
+                cat >> "$notes" <<'EOF'
+          - Removed the hard 10-minute duel cutoff.
+          - Restored a configurable 25-second mid-fight reconnect grace period.
+          - Protected reconnecting players from premature lobby inventory resets.
+          - Increased Ranked Plains spawn-search attempts and improved failure messages.
+          - Multiplayer behaviour still requires testing.
+          EOF
+                ;;
+              v1.3.4-dev.08-kitroom-drag)
+                cat >> "$notes" <<'EOF'
+          - Fixed Kit Room catalogue clicks so regular click picks up an editable copy onto the cursor.
+          - Added right-click single-item pickup and kept Shift-click quick-add behaviour.
+          - Preserved catalogue restocking and existing Kit Room item / XP-bottle restrictions.
+          - Multiplayer and GUI interaction testing still required.
+          EOF
+                ;;
+              v1.3.4-dev.09-admin-lobby)
+                cat >> "$notes" <<'EOF'
+          - Added a multi-page Admin Panel with GUI-based player moderation, ban durations/reasons and confirmation.
+          - Added management menus for ranks, kits, NPCs, maintenance, cleanup, backups and diagnostics.
+          - Reorganised lobby hotbar and secondary inventory menu shortcuts.
+          - Removed lobby Wind Charges and added lobby player damage protection.
+          - Superseded by the later post-match UI build.
+          EOF
+                ;;
+              v1.3.4-dev.10-post-match)
+                cat >> "$notes" <<'EOF'
+          - Redesigned the 6-row post-match results GUI.
+          - Added winner/result display, fight duration, hits, damage, healing, best combo and armour information.
+          - Shows Ranked Elo changes for Ranked fights, and Rematch / Requeue / Lobby / Spectate / Close actions.
+          - Allows reopening the latest recorded result through `/fightresult`.
+          - Organised the repository into browsable Maven source, configs and CI regression checks.
+          - **Current development snapshot;** not a stable/public multiplayer-tested release.
+          EOF
+                ;;
+              *)
+                echo "Unknown release identifier $tag" >&2
+                exit 1
+                ;;
+            esac
+            printf '\n**Compatibility:** Paper 26.1.2, Java 25. Existing plugin data should be backed up before installing another snapshot.\n' >> "$notes"
+            gh release create "$tag" "$asset" --repo "$REPO" --target "$sha" --title "$title" --notes-file "$notes" --prerelease
+            echo "::endgroup::"
+          done <<'RELEASES'
+          v1.3.4-dev.01-stage4|41146025028|aeef7921b7c16c8fe2b5c60950eed3843fc7da2d|RiftPvP v1.3.4 Dev 01 — Stage 4 Baseline
+          v1.3.4-dev.02-stage8|41226669165|51af11d45769ad3edc08062efe71d2b086f7be3b|RiftPvP v1.3.4 Dev 02 — Stage 8 Baseline
+          v1.3.4-dev.03-menu-fix|41233754812|678a595bab39b58bcb7af693afb3c9643c0e4b5d|RiftPvP v1.3.4 Dev 03 — Menu Fix
+          v1.3.4-dev.04-npc-fix|41245558746|28f410198205a20b55ec8538ca5f774a4430266d|RiftPvP v1.3.4 Dev 04 — NPC Fix
+          v1.3.4-dev.05-build-mode|41247459685|0fed458ee794831d0cae74bc26baa7fd9744f148|RiftPvP v1.3.4 Dev 05 — Build Mode
+          v1.3.4-dev.06-ranked-plains|41248030197|ecdab42b2f45eb0015ec50328ff9a478e25f539a|RiftPvP v1.3.4 Dev 06 — Ranked Plains GUI
+          v1.3.4-dev.07-match-recovery|41313575080|25941ac75091466fa6b24d443b372ccbaf3264e4|RiftPvP v1.3.4 Dev 07 — Match Recovery
+          v1.3.4-dev.08-kitroom-drag|41342182947|e8a8e124e9a1e8eef6564fda4e924e6e7f84dcab|RiftPvP v1.3.4 Dev 08 — Kit Room Drag
+          v1.3.4-dev.09-admin-lobby|41343630788|e4c7c056428b8b90b7b27264283117e77d301d05|RiftPvP v1.3.4 Dev 09 — Admin GUI and Lobby Safety
+          v1.3.4-dev.10-post-match|41345178389|42a49ce8e2686187201c53a7532646a636f982cb|RiftPvP v1.3.4 Dev 10 — Post-Match UI
+          RELEASES
