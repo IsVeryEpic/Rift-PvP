@@ -1,0 +1,214 @@
+id: nethpot
+type: INVENTORY
+cooldownSeconds: 0
+cooldownOverrides: []
+permission: mcwar.kits.use.nethpot
+oneTimeOnly: false
+inventoryLayout:
+  slotMap:
+    '0':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/03PS5ICIRAE0FSiR2Vcjb/wKq71Cm47EEqbUIoOoPVmnk96/CDLfBRJSUDgd6uS2lOI1jPwdx9jaA3WzjLpoI5pw5QaCjZRHW8+GIFK+44TgIGE1N61nolTlFiWIWLdKE6uB4FZgdio0DLFmOcrgdWX3Ihay6eazImyCoF50Y4PgdQ5e0+QWBTTXUze1SYvMsF091Ut+8vPjSaf5iHE5XpBhSeM38WvXLzyUX7BlHiQ4WernPr/XH8edj4sBT8BAAA=
+    '1':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '2':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '3':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '4':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '5':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '6':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCWm5mXmlyUmFZilZ6fk5KaF59YUJCTyszAmpxfmlfCwMDgwAAACmmluD8AAAA=
+    '7':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/2WOwQrCMBBER4tS40WEIvZTPPsBnryGkCYasLulu8U/8/tMaaGCe5udmccYoMD+6tTdQy+JCTh+SqxTg1ObKPjeRb1I93LytB1rThTYeB5IAawMjOe2YwqkYnBeKlPWeiYdvRLb6YP6B6s908PKO0WlIAKDanH9IMqtbfK2HapZzdgQY/AqGC+jbxP68AcEvpyQCvPhAAAA
+    '8':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OQQrCQAxFvxaljgtBKOJVuvYArtwOw3SmLdikTNKreT6ntFAxm5D8l0cMUOD8cOpeIUnPBFw/JfZ9g9vQU/DJRa1lfDvp7MiaiQIHzxMpgJ2B8TyMTIFUDO7bycJaz6RzVuK4bH4Z0cTU2twCtdrBoNpCP4nyYJv82gnVOq3WEGPwKpgrm5+L+fLvA76qxK5v3wAAAA==
+    '9':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCdm5mXmlyUmFZilVpRkFqUmZqXnBqflF9SkpPKzMCanF+aV8LAwODAAAAa3bjMRAAAAA==
+    '10':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '11':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '12':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '13':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '14':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/2WOwQrCMBBER4tS40WEIvZTPPsBnryGkCYasLulu8U/8/tMaaGCe5udmccYoMD+6tTdQy+JCTh+SqxTg1ObKPjeRb1I93LytB1rThTYeB5IAawMjOe2YwqkYnBeKlPWeiYdvRLb6YP6B6s908PKO0WlIAKDanH9IMqtbfK2HapZzdgQY/AqGC+jbxP68AcEvpyQCvPhAAAA
+    '15':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OQQrCQAxFvxaljgtBKOJVuvYArtwOw3SmLdikTNKreT6ntFAxm5D8l0cMUOD8cOpeIUnPBFw/JfZ9g9vQU/DJRa1lfDvp7MiaiQIHzxMpgJ2B8TyMTIFUDO7bycJaz6RzVuK4bH4Z0cTU2twCtdrBoNpCP4nyYJv82gnVOq3WEGPwKpgrm5+L+fLvA76qxK5v3wAAAA==
+    '16':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/2WOwQrCMBBER4tS40WEIvZTPPsBnryGkCYasLulu8U/8/tMaaGCe5udmccYoMD+6tTdQy+JCTh+SqxTg1ObKPjeRb1I93LytB1rThTYeB5IAawMjOe2YwqkYnBeKlPWeiYdvRLb6YP6B6s908PKO0WlIAKDanH9IMqtbfK2HapZzdgQY/AqGC+jbxP68AcEvpyQCvPhAAAA
+    '17':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OQQrCQAxFvxaljgtBKOJVuvYArtwOw3SmLdikTNKreT6ntFAxm5D8l0cMUOD8cOpeIUnPBFw/JfZ9g9vQU/DJRa1lfDvp7MiaiQIHzxMpgJ2B8TyMTIFUDO7bycJaz6RzVuK4bH4Z0cTU2twCtdrBoNpCP4nyYJv82gnVOq3WEGPwKpgrm5+L+fLvA76qxK5v3wAAAA==
+    '18':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCdm5mXmlyUmFZilVpRkFqUmZqXnBqflF9SkpPKzMCanF+aV8LAwODAAAAa3bjMRAAAAA==
+    '19':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '20':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '21':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '22':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '23':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/2WOwQrCMBBER4tS40WEIvZTPPsBnryGkCYasLulu8U/8/tMaaGCe5udmccYoMD+6tTdQy+JCTh+SqxTg1ObKPjeRb1I93LytB1rThTYeB5IAawMjOe2YwqkYnBeKlPWeiYdvRLb6YP6B6s908PKO0WlIAKDanH9IMqtbfK2HapZzdgQY/AqGC+jbxP68AcEvpyQCvPhAAAA
+    '24':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OQQrCQAxFvxaljgtBKOJVuvYArtwOw3SmLdikTNKreT6ntFAxm5D8l0cMUOD8cOpeIUnPBFw/JfZ9g9vQU/DJRa1lfDvp7MiaiQIHzxMpgJ2B8TyMTIFUDO7bycJaz6RzVuK4bH4Z0cTU2twCtdrBoNpCP4nyYJv82gnVOq3WEGPwKpgrm5+L+fLvA76qxK5v3wAAAA==
+    '25':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/2WOwQrCMBBER4tS40WEIvZTPPsBnryGkCYasLulu8U/8/tMaaGCe5udmccYoMD+6tTdQy+JCTh+SqxTg1ObKPjeRb1I93LytB1rThTYeB5IAawMjOe2YwqkYnBeKlPWeiYdvRLb6YP6B6s908PKO0WlIAKDanH9IMqtbfK2HapZzdgQY/AqGC+jbxP68AcEvpyQCvPhAAAA
+    '26':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OQQrCQAxFvxaljgtBKOJVuvYArtwOw3SmLdikTNKreT6ntFAxm5D8l0cMUOD8cOpeIUnPBFw/JfZ9g9vQU/DJRa1lfDvp7MiaiQIHzxMpgJ2B8TyMTIFUDO7bycJaz6RzVuK4bH4Z0cTU2twCtdrBoNpCP4nyYJv82gnVOq3WEGPwKpgrm5+L+fLvA76qxK5v3wAAAA==
+    '27':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCVm5mXmlyUmFZiVZJfkpobn58WX5qXUpmZl87MwJqcX5pXwsDAwMgAAGQ4cF9DAAAA
+    '28':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCVm5mXmlyUmFZiVZJfkpobn58WX5qXUpmZl87MwJqcX5pXwsDAwMgAAGQ4cF9DAAAA
+    '29':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '30':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '31':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '32':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '33':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OwQrCMBBER4tSI3gQivZXPPsBnryGkCZtoN0tyfbX/D5bUqi4t9mZeYwCCpyfRszbxRSYgOunxD40uA2BnI3GyyONvUmdHlnmRIGD5YkEwE5BWR5GJkeSFOqtkrPaMsnilTjmD+4/WIlMre6c6QO1UKg2z05JeNDNvOyEalUr1HnvrCQsN4NfGXz5wwFfLDJ+O90AAAA=
+    '34':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/2WOwQrCMBBER4tS40WEIvZTPPsBnryGkCYasLulu8U/8/tMaaGCe5udmccYoMD+6tTdQy+JCTh+SqxTg1ObKPjeRb1I93LytB1rThTYeB5IAawMjOe2YwqkYnBeKlPWeiYdvRLb6YP6B6s908PKO0WlIAKDanH9IMqtbfK2HapZzdgQY/AqGC+jbxP68AcEvpyQCvPhAAAA
+    '35':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/12OQQrCQAxFvxaljgtBKOJVuvYArtwOw3SmLdikTNKreT6ntFAxm5D8l0cMUOD8cOpeIUnPBFw/JfZ9g9vQU/DJRa1lfDvp7MiaiQIHzxMpgJ2B8TyMTIFUDO7bycJaz6RzVuK4bH4Z0cTU2twCtdrBoNpCP4nyYJv82gnVOq3WEGPwKpgrm5+L+fLvA76qxK5v3wAAAA==
+  armor:
+    helmet:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/1WPSw7CMAxEp4RvYAMCFhyFNVyBbRVSQyMaB6UuR+N8tLRSwN7Nk8czGlBYnoyYC8XaBQY27zlGrsDBOyYbzU2OTFJSdEJ5SZUnUZjY0LAAyDS0Df4ZmFhqjX26IralYfEdUFgn0CqF43t3rbBNesPXSObRI/WHnjEIWfkGxBgau8RsU0vwedGWWGB1/vmqO5++jU4OI6jqVbUuPZkNcQY5G2Sd0gxEtTs9GW/uhH4+IWsYaT4BAAA=
+    chest:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/1WPSw7CMAxEB8I3sAEBSw7CulyBLQqpoRGNU6UuR+N8tLRSwN7Nk8czGlBYZUbMhWLtAgPb9wJjl+PoHZON5i4nJikoOqGrLaiWqjRCClMbGhYAIw1tg68CE0utcUiXxLYwLL4DCpsEWiV3/OiuFXZJb/gWyTx7pP5QFYOQlW9ITKCxT8w2tQR/zdsiS6zPP19159M30slhDFW+ytalJ/MhziCPBlmnNANR7c4y482D0M8HV6nv8kIBAAA=
+    legs:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/1WPSw7CMAxEB8I3sAEBK07CGq7AFoXUlIjGQanL0TgfKa0UsHfz5PGMBhQWRyPmTLF2gYH1e4ahK7D3jslGc5MDk9wpOqFLRWXpuKwVxjY0LAAGGtoG/wxMLLXGLt8R27th8S1QWGWQlCLZtNcKm6w3fI1kHh1Sf+gZg5CVb0SMoLHNzDa1BH8pUo05lqefr7r16fro7DCEql5VcunItI/Ty4Ne1jlNT1TaydF4UxK6+QB8uRoOQAEAAA==
+    boots:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/1WPSw7CMAxEh4ZvYAMCJK7CGq7AFqWpoRGNg1KXo3E+WlopYO/myeMZDSgsT0bMhWLtAgOb9xyZK3DwjslGc5Mjk5QUndA1D0FqhYkNDQuAkYa2wT8DE0utsU9HxLY0LL4DCusEWqVwfO+uFbZJbziPZB49Un/oGYOQlW8+jKGxS8w2tQR/LdoOC6zOP19159OX0ckhg6peVevSk9kQZ5BHg6xTmoGodqcn482d0M8H74uEyD0BAAA=
+  offhand:
+    type: ITEM
+    chance: 100.0
+    item:
+      b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCVm5mXmlyUmFZiVZJfkpobn58WX5qXUpmZl87MwJqcX5pXwsDAwMgAAGQ4cF9DAAAA

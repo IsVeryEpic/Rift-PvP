@@ -1,0 +1,241 @@
+name: RiftPvP
+version: 1.3.4-SNAPSHOT
+main: dev.riftpvp.RiftPvpPlugin
+api-version: '26.1'
+description: Configurable kit queues, random teleport, combat tagging, healing, and stats.
+softdepend: [KitsCratesPlus]
+commands:
+  riftmenu:
+    description: Open the central RiftPvP player and staff navigation menu.
+    usage: /riftmenu
+    aliases: [riftgui]
+    permission: riftpvp.queue
+  rtpq:
+    description: Choose a kit-specific random teleport matchmaking queue.
+    usage: /rtpq [leave]
+    permission: riftpvp.queue
+  kit:
+    description: Open the Rift PvP kit selection menu.
+    usage: /kit [name]
+    permission: riftpvp.kit
+  kiteditor:
+    description: Edit your personal slot layout for any server kit.
+    usage: /kiteditor [kit]
+    permission: riftpvp.kiteditor
+  duel:
+    description: Invite a player to a private kit duel, or accept a challenge.
+    usage: /duel <player> [kit|custom:1-6] | /duel accept | /duel deny
+    permission: riftpvp.duel
+  rematch:
+    description: Challenge your last opponent to a rematch.
+    usage: /rematch
+    permission: riftpvp.duel
+  ranked:
+    description: Join or leave Elo-based 1v1 matchmaking.
+    usage: /ranked [kit|leave]
+    permission: riftpvp.ranked
+  rank:
+    description: View your or a player's per-kit LT5 through HT1 ranks.
+    usage: /rank [player]
+    permission: riftpvp.rank
+  profile:
+    description: View full player statistics and kit ranks.
+    usage: /profile [player]
+    permission: riftpvp.profile
+  fightstats:
+    description: Show per-kit fight analytics and win streaks.
+    usage: /fightstats
+    permission: riftpvp.fightstats
+  queueprefs:
+    description: Change queue ping preference.
+    usage: /queueprefs ping <any|50|100|150|200|300>
+    permission: riftpvp.queueprefs
+  stats:
+    description: View your or another online player's practice stats.
+    usage: /stats [player]
+    permission: riftpvp.stats
+  spectate:
+    description: Spectate a player in a current match.
+    usage: /spectate <player>
+    permission: riftpvp.spectate
+  unspectate:
+    description: Leave spectator mode.
+    usage: /unspectate
+    permission: riftpvp.spectate
+  fightresult:
+    description: Inspect your last fight with armour durability before and after.
+    usage: /fightresult
+    permission: riftpvp.duel
+  party:
+    description: Create, invite and manage a social party.
+    usage: /party [create|invite|accept|leave|list]
+    permission: riftpvp.party
+  leaderboard:
+    description: View all-time kills, deaths, or playtime leaderboards.
+    aliases: [topkills, topdeaths, topplaytime]
+    usage: /leaderboard [kills|deaths|playtime]
+    permission: riftpvp.leaderboard
+  kitcreate:
+    description: Create a global kit (Admin rank, Founder or OP).
+    usage: /kitcreate <id>
+  kitmodes:
+    description: Enable or disable ranked, queue, duel, or custom matchmaking for each kit (Admin/Founder/OP).
+    usage: /kitmodes <kit> [mode] [on|off]
+    permission: riftpvp.kitmanagement
+  tutorial:
+    description: Show the clickable new-player guide again.
+    usage: /tutorial
+    permission: riftpvp.tutorial
+  kitsettings:
+    description: Toggle global kit XP cap and Kit Room (Admin rank, Founder or OP).
+    usage: /kitsettings <id>
+  kitdelete:
+    description: Archive a global kit with confirmation (Admin rank, Founder or OP).
+    usage: /kitdelete <id> [confirm]
+  kitrestore:
+    description: Restore a previously archived global kit (Admin rank, Founder or OP).
+    usage: /kitrestore <id>
+  customkit:
+    description: Save six personal kits, host a custom kit or join a random custom host.
+    usage: /customkit [save|delete|host <1-6>|queue|leave|list]
+    permission: riftpvp.customkit
+  heal:
+    description: Restore health, hunger and saturation.
+    usage: /heal
+    permission: riftpvp.heal
+    aliases: [pvheal]
+  rtp:
+    description: Random teleport in the Overworld, Nether, or End.
+    usage: /rtp [overworld|nether|end]
+    permission: riftpvp.rtp
+  lobby:
+    description: Return to the saved lobby spawn and clear all inventory slots.
+    usage: /lobby
+    permission: riftpvp.lobby
+  tpa:
+    description: Request to teleport to another player.
+    usage: /tpa <player>
+    permission: riftpvp.tpa
+  tpahere:
+    description: Invite another player to teleport to you.
+    usage: /tpahere <player>
+    permission: riftpvp.tpa
+  tpaccept:
+    description: Accept a teleport request.
+    usage: /tpaccept [player]
+    permission: riftpvp.tpa
+  tpdeny:
+    description: Deny a teleport request.
+    usage: /tpdeny [player]
+    permission: riftpvp.tpa
+  tpcancel:
+    description: Cancel your outgoing teleport request.
+    usage: /tpcancel
+    permission: riftpvp.tpa
+  matchhistory:
+    description: View the last 10 recorded matches.
+    usage: /matchhistory
+    permission: riftpvp.matchhistory
+  matchinfo:
+    description: View non-sensitive details of a match.
+    usage: /matchinfo <id>
+    permission: riftpvp.matchinfo
+  report:
+    description: Report a player or match with a reason.
+    usage: /report <player|match-id> <reason>
+    permission: riftpvp.report
+  match:
+    description: Inspect staff match evidence (OP only).
+    usage: /match inspect <id>
+    permission: riftpvp.admin
+  settings:
+    description: Configure your RiftPvP teleport, duel, party and sound preferences.
+    usage: /settings
+    permission: riftpvp.settings
+  visibility:
+    description: Control who you can see in the RiftPvP lobby.
+    usage: /visibility [everyone|party|hidden]
+    permission: riftpvp.visibility
+  staff:
+    description: Open RiftPvP staff tools (staff role required).
+    usage: /staff [help|kick|tempban|unban]
+    permission: riftpvp.staff
+  riftkick:
+    description: Kick a non-staff player with a reason.
+    usage: /riftkick <player> <reason>
+    permission: riftpvp.staff
+  rtempban:
+    description: Temporarily ban a non-staff player with a reason.
+    usage: /rtempban <player> <duration> <reason>
+    permission: riftpvp.staff
+  rtunban:
+    description: Remove a RiftPvP temporary ban (OP only).
+    usage: /rtunban <player>
+    permission: riftpvp.staff
+  riftpvp:
+    description: Rift PvP administration.
+    usage: /riftpvp [doctor|audit|integrity|toggles|cleanup|reload|setlobby|kit|rank|npc]
+    aliases: [rift]
+    permission: riftpvp.admin
+permissions:
+  riftpvp.kitmanagement:
+    default: true # Command implementation performs an explicit OP/Admin/Founder check
+  riftpvp.tutorial:
+    default: true
+  riftpvp.fightstats:
+    default: true
+  riftpvp.queueprefs:
+    default: true
+  riftpvp.vipflight:
+    default: false
+  riftpvp.queue:
+    default: true
+  riftpvp.customkit:
+    default: true
+  riftpvp.kit:
+    default: true
+  riftpvp.kiteditor:
+    default: true
+  riftpvp.leaderboard:
+    default: true
+  riftpvp.kitcreate:
+    default: op
+  riftpvp.heal:
+    default: true
+  riftpvp.rtp:
+    default: true
+  riftpvp.lobby:
+    default: true
+  riftpvp.admin:
+    default: op
+  riftpvp.viptrims:
+    description: Access to custom cosmetic armour trims in the kit editor.
+    default: false
+  riftpvp.duel:
+    default: true
+  riftpvp.ranked:
+    default: true
+  riftpvp.stats:
+    default: true
+  riftpvp.spectate:
+    default: true
+  riftpvp.party:
+    default: true
+  riftpvp.tpa:
+    default: true
+  riftpvp.staff:
+    default: true
+  riftpvp.settings:
+    default: true
+  riftpvp.visibility:
+    default: true
+  riftpvp.rank:
+    default: true
+  riftpvp.profile:
+    default: true
+  riftpvp.matchhistory:
+    default: true
+  riftpvp.matchinfo:
+    default: true
+  riftpvp.report:
+    default: true

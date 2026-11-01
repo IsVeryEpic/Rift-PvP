@@ -1,0 +1,341 @@
+# Rift PvP settings. All player data and saved kits live inside plugins/RiftPvP,
+# not inside world folders; deleting or regenerating worlds won't reset stats.
+server:
+  name: 'Rift PvP'
+  title-color: '#AA55FF'
+
+menus:
+  ranked-title: '&5Rift PvP &8| &dRanked Queue'
+  ranked-size: 45
+  ranked-lore:
+    - '&7Click to join the ranked queue for this kit'
+    - '&7Players waiting: &e%waiting%'
+  queue-title: '&5Rift PvP &8| &fRTP Queue'
+  kit-title: '&5Rift PvP &8| &fKits'
+  editor-title: '&5Rift PvP &8| &fKit Editor'
+  leaderboard-title: '&5Rift PvP &8| &fTop Kills'
+  deaths-leaderboard-title: '&5Rift PvP &8| &fTop Deaths'
+  playtime-leaderboard-title: '&5Rift PvP &8| &fTop Playtime'
+  rtp-title: '&5Rift PvP &8| &fRandom Teleport'
+  queue-size: 36
+  kit-size: 36
+  editor-size: 36
+  queue-lore:
+    - '&7Click to join this kit''s queue'
+    - '&7Waiting: &e%waiting%'
+  queue-auto-equip-lore: '&aBoth players receive this kit on match'
+  kit-lore:
+    - '&7Click to equip this kit'
+    - '&8Replaces your entire inventory'
+  editor-lore:
+    - '&7Click to edit your personal layout'
+    - '&8Only changes slot positions, not items'
+  rtp-lore:
+    - '&7Click to teleport to a random safe location'
+
+# Keeps the /kit GUI working even if KitsCratesPlus or another plugin registered /kit first.
+# Disable this if another server plugin MUST own the /kit command.
+commands:
+  prefer-rift-kit: true
+  # /heal must work for non-OPs even when another plugin owns an OP-only /heal.
+  # /pvheal always calls RiftPvP's own heal command directly.
+  prefer-rift-heal: true
+  aliases-for-kit-blocking: ['kit', 'kits', 'kitscratesplus', 'kcp']
+
+matchmaking:
+  # Allow a player to wait in multiple kit queues at once.
+  allow-multiple-queues: true
+  world: 'world'
+  # Automatically clear, heal, and equip the chosen kit for BOTH matched players.
+  # Set false if players should equip manually via /kit before fighting.
+  auto-equip-kit: true
+  # Enter arenas from above like CartPractice. Both drop columns must be clear.
+  air-spawn-height: 5
+  slow-falling-seconds: 3
+  min-distance: 200
+  max-distance: 5000
+  countdown-seconds: 3
+  # Choose and preload both safe spawn positions before the teleport countdown.
+  preload-retries: 8
+  # After both teleports complete, block attacks and horizontal movement for 3-2-1.
+  in-arena-countdown-seconds: 3
+  arrival-protection-seconds: 3
+  players-per-match: 2
+  separation-blocks: 3
+  active-match-timeout-seconds: 0 # legacy option; active fights no longer auto-expire
+  location-separation-blocks: 250 # Minimum; active fights and lobby stay at least 250 blocks apart
+  max-location-attempts: 32
+  max-concurrent-teleports: 4
+
+rtp:
+  enabled: true
+  min-distance: 10000
+  max-distance: 200000
+  max-location-attempts: 32
+  cooldown-seconds: 20
+  max-concurrent-teleports: 4
+  worlds:
+    overworld: 'world'
+    nether: 'world_nether'
+    end: 'world_the_end'
+
+
+# RiftPvP built-in ground entity cleaner, no external ClearLag plugin required.
+# Runs once every 60s (1200 game ticks) in already-loaded chunks only.
+# Empty worlds list follows rtp.worlds.overworld/nether/end, including custom world names.
+# WARNING: grounded-mobs also removes ordinary farm animals and hostile mobs.
+# Never removes players, NPCs, villagers, named/tamed mobs, boss mobs,
+# armor stands, mannequins, vehicles, displays, or mounted entities.
+# Add the scoreboard tag 'cleanup-protected' to preserve a particular entity.
+cleanup:
+  enabled: true
+  interval-seconds: 60
+  worlds: []
+  dropped-items: true
+  experience-orbs: true
+  grounded-mobs: false
+  grounded-projectiles: true
+  minimum-item-age-seconds: 30
+  warning-seconds: 10
+  player-protection-radius-blocks: 24
+  lobby-protection-radius-blocks: 48
+  log-results: false
+
+# Run /riftpvp setlobby in-game to save the exact spawn world, coordinates
+# and direction. /lobby fails safely until this has been set once.
+lobby:
+  # Main hotbar items: Rift Menu, RTP Queue, Ranked, Kit Editor, Random TP.
+  # Secondary items, including Staff and Admin, are in inventory slots 10-17.
+  # Open inventory (E) and click a shortcut to open its UI. VIP rockets stay in hotbar slot 9.
+  hotbar-enabled: true
+  # Separate horizontal radius for VIP Elytra, rockets and menu shortcuts.
+  # Default 192 blocks; limited to 225 so PvP fights (>=250 blocks away) remain clear.
+  # Flying high above the lobby does not remove these temporary items.
+  # Combat rules, /kit, teleports, visibility and inventory clearing still use
+  # the smaller lobby.protection-radius (default 48).
+  items-radius: 192
+  # Clear inventory, armor, offhand and cursor when joining in the lobby,
+  # teleporting into it (including /spawn or /warp), or respawning there.
+  # /lobby and interrupted-match recovery always clear regardless of this toggle.
+  # Only affects the configured lobby area, never unrelated worlds/locations.
+  clear-inventory-on-entry: true
+  clear-potion-effects-on-entry: true
+
+heal:
+  enabled: true
+  health: true
+  food-level: 20
+  saturation: 20.0
+  clear-absorption: true
+
+combat:
+  # Clear combat cooldown for the player who died.
+  clear-on-death: true
+  # Clear combat cooldown for the player credited with a kill.
+  clear-on-kill: true
+  enabled: true
+  tag-seconds: 10
+  block-kit: true
+  block-heal: true
+  block-rtp: true
+  block-lobby: true
+  block-queue: true
+  block-commands: ['kit', 'kits', 'heal', 'rtp', 'rtpq', 'lobby', 'spawn', 'home', 'warp', 'tpa', 'tpaccept']
+  notify-on-tag: true
+  notify-when-expired: true
+  # Quitting during a tag will not delete items by default. Set true to count
+  # the logout as a death and clear inventory the next time they join.
+  punish-combat-logout: false
+
+# Clickable player-model lobby NPCs are made with /riftpvp npc create <type>.
+# Their positions are stored in plugins/RiftPvP/npcs.yml and can be respawned
+# after you reset the world. Right-click NPCs to open the respective menus.
+npcs:
+  enabled: true
+  entity-type: MANNEQUIN # Native Paper player-shaped entity, no Citizens needed.
+  glowing: false
+  skin:
+    username: 'bgps' # Uses this account's CURRENT Java skin by default.
+    use-resource-pack: false # Set true after merging provided skin PNG into your forced pack.
+    texture: 'riftpvp:entity/bgps' # assets/riftpvp/textures/entity/bgps.png
+    slim-arms: false # Set true for a slim/Alex-model uploaded skin.
+  labels:
+    queue: '&d&lRTP Queue &7(Right-click)'
+    rtp: '&b&lRandom TP &7(Right-click)'
+    leaderboard: '&6&lLeaderboards &7(Right-click)'
+    editor: '&a&lKit Editor &7(Right-click)'
+    heal: '&c&lHeal &7(Right-click)'
+    hub: '&d&lHUB &7(Right-click)'
+    ranked: '&d&lRANKED &7(Right-click)'
+    spectate: '&d&lSPECTATE &7(Right-click)'
+
+# All RiftPvP sounds are heard by the affected player, not broadcast globally.
+# Change each name to a Bukkit Sound enum, or 'none' to disable that cue.
+# Volume and pitch are independently configurable for each event.
+sounds:
+  enabled: true
+  queue-join:    {name: UI_BUTTON_CLICK, volume: 0.7, pitch: 1.15}
+  queue-leave:   {name: UI_BUTTON_CLICK, volume: 0.7, pitch: 0.8}
+  match-found:   {name: ENTITY_PLAYER_LEVELUP, volume: 0.85, pitch: 1.25}
+  countdown:     {name: BLOCK_NOTE_BLOCK_PLING, volume: 0.95, pitch: 1.0}
+  match-start:   {name: ENTITY_PLAYER_ATTACK_CRIT, volume: 1.0, pitch: 1.0}
+  teleport:      {name: ENTITY_ENDERMAN_TELEPORT, volume: 0.6, pitch: 1.2}
+  kit:           {name: ENTITY_ITEM_PICKUP, volume: 0.7, pitch: 1.2}
+  heal:          {name: BLOCK_BEACON_POWER_SELECT, volume: 0.65, pitch: 1.4}
+  combat-start:  {name: BLOCK_NOTE_BLOCK_BASS, volume: 0.5, pitch: 0.8}
+  kill:          {name: ENTITY_PLAYER_LEVELUP, volume: 0.75, pitch: 1.25}
+  death:         {name: ENTITY_PLAYER_HURT, volume: 0.5, pitch: 0.8}
+  npc-click:     {name: UI_BUTTON_CLICK, volume: 0.7, pitch: 1.2}
+
+scoreboard:
+  enabled: true
+  title: 'Rift PvP'
+  title-color: '#AA55FF'
+  username-label: 'Player: '
+  kills-label: 'Kills: '
+  deaths-label: 'Deaths: '
+  show-ping: true
+  ping-label: 'Ping: '
+
+# Updates every 2 seconds. %ping%, %tps%, %online%, %server% work in the footer.
+# Server name/header colour are read from server.name/server.title-color above.
+tablist:
+  enabled: true
+  subtitle: '&7Practice • Kit PvP'
+  footer: '&7Ping: &a%ping%ms &8| &7TPS: &a%tps% &8| &7Online: &f%online%'
+  update-ticks: 40
+
+# Uses vanilla scoreboard teams on the same board as the RiftPvP sidebar.
+# Each rank's colour and overhead prefix follow /riftpvp rank prefix/color.
+nametags:
+  enabled: true
+
+messages:
+  prefix: '&5Rift PvP &8» &r'
+  no-permission: '&cYou do not have permission.'
+  players-only: '&cThis command must be used by a player.'
+  combat-blocked: '&cYou are in combat for another &e%seconds%s&c.'
+  combat-started: '&cCombat tagged for &e%seconds%s&c. Do not log out!'
+  combat-ended: '&aYou are no longer in combat.'
+  combat-logout: '&cYou logged out while combat tagged. Your inventory was cleared.'
+  kit-not-found: '&cThat kit is not available.'
+  kit-not-loaded: '&cKit data could not be loaded. Please contact staff.'
+  kit-equipped: '&aEquipped the &e%kit% &akit!'
+  kit-saved: '&aSaved kit &e%kit% &afrom your inventory.'
+  kit-imported: '&aImported kit &e%kit%&a.'
+  icon-set: '&aUpdated the display icon for &e%kit%&a.'
+  empty-hand: '&cHold the desired display item in your main hand.'
+  heal-done: '&aYou have been healed.'
+  queue-joined: '&aJoined the &e%kit% &aqueue. Waiting for an opponent...'
+  queue-left: '&eYou left the queue.'
+  queue-already: '&cYou are already waiting in a queue or fighting.'
+  queue-found: '&aOpponent found for &e%kit%&a! Teleporting soon.'
+  queue-not-waiting: '&cYou are not currently queued.'
+  queue-teleported: '&aFight! Temporary arrival protection is active.'
+  queue-failed: '&cCould not find a safe location. Please try again.'
+  queue-world-missing: '&cThe configured matchmaking world is unavailable.'
+  rtp-starting: '&7Finding a safe location in the &e%world%&7...'
+  rtp-success: '&aRandom teleport successful.'
+  rtp-failed: '&cNo safe location was found. Try again later.'
+  rtp-busy: '&cToo many players are teleporting. Try again soon.'
+  rtp-cooldown: '&cPlease wait &e%seconds%s &cbefore another RTP.'
+  rtp-world-missing: '&cThat dimension is not available.'
+  lobby-set: '&aLobby spawn saved! Players can now use &e/lobby&a.'
+  lobby-unset: '&cLobby spawn is not set yet. Ask staff to run /riftpvp setlobby.'
+  lobby-world-missing: '&cThe saved lobby world is not loaded. Ask staff to check the world manager.'
+  lobby-failed: '&cCould not teleport to the lobby. Your inventory was not changed.'
+  lobby-success: '&aTeleported to the lobby. Your inventory has been cleared.'
+  queue-cancelled: '&eYour pending match was cancelled because the other player returned to the lobby.'
+  admin-reloaded: '&aConfiguration reloaded.'
+
+# Exact IDs match the supplied KitsCratesPlus filenames, including "sheildaxe".
+# You can change icons, names, slots and enable/disable kits here, or set a custom
+# icon in game using /riftpvp kit icon <id> while holding the desired icon.
+kits:
+  diamondsmp: {enabled: true, name: 'Diamond SMP', icon: DIAMOND_CHESTPLATE, glow: false, slot: 10}
+  earlygame: {enabled: true, name: 'Early Game', icon: GOLDEN_APPLE, glow: false, slot: 11}
+  endgame: {enabled: true, name: 'End Game', icon: TOTEM_OF_UNDYING, glow: false, slot: 12}
+  htk: {enabled: true, name: 'HTK', icon: TNT_MINECART, glow: true, slot: 13}
+  lategame: {enabled: true, name: 'Late Game', icon: NETHERITE_CHESTPLATE, glow: false, slot: 14}
+  ltk: {enabled: true, name: 'LTK', icon: TNT_MINECART, glow: false, slot: 15}
+  mace: {enabled: true, name: 'Mace', icon: MACE, glow: false, slot: 16}
+  moneysmp: {enabled: true, name: 'Money SMP', icon: EMERALD, glow: false, slot: 19}
+  nethpot: {enabled: true, name: 'NethPot', icon: NETHERITE_HELMET, glow: false, slot: 20}
+  pot: {enabled: true, name: 'Pot', icon: SPLASH_POTION, potion: HEALING, glow: false, slot: 21}
+  sheildaxe: {enabled: true, name: 'Shield Axe', icon: NETHERITE_AXE, glow: false, slot: 22}
+  smp: {enabled: true, name: 'SMP', icon: ENDER_PEARL, glow: false, slot: 23}
+  spearmace: {enabled: true, name: 'Spear Mace', icon: NETHERITE_SPEAR, glow: false, slot: 24}
+  sword: {enabled: true, name: 'Sword', icon: DIAMOND_SWORD, glow: false, slot: 25}
+
+lobby-features-note: "Kit Room and VIP perks use plugins/RiftPvP persistent storage."
+
+ranked:
+  # Ranked fights only. Never changes /rtp, RTPQ, or casual duels.
+  allowed-biomes: [PLAINS, SUNFLOWER_PLAINS]
+  # Additional retries to find a safe, loaded Plains fight location.
+  location-retries: 32
+  integrity:
+    enabled: true
+    window-minutes: 60
+    flag-after-matches: 4
+    suppress-repeat-elo: false
+  matchmaking:
+    initial-elo-gap: 150
+    elo-gap-per-15s: 50
+    maximum-elo-gap: 600
+  placements: 5
+  tier-base-elo: 1000
+  tier-step: 100
+  penalties:
+    enabled: true
+    decay-hours: 24
+
+match-records:
+  retention: 5000
+rekit-alerts:
+  radius: 48
+features:
+  tpa: true
+  ranked: true
+  rekit-alerts: true
+
+# Opt-in Discord notifications. Keep the webhook URL secret and do not share config.yml.
+discord:
+  enabled: false
+  webhook-url: ''
+  events:
+    ranked-results: true
+    integrity: true
+    reports: true
+    staff-actions: true
+
+
+# Stage 8: scheduled, bounded plugin-data snapshots in plugins/RiftPvP/backups.
+# These ZIP archives include config.yml, including any configured webhook credentials.
+# Keep the backups folder private and backed up off-server when appropriate.
+backups:
+  enabled: true
+  interval-minutes: 120
+  keep: 10
+  max-size-mb: 128
+
+# Players reconnecting during grace resume; when it expires the opponent wins.
+# Reconnect pauses an interrupted active fight for a short, configurable grace period.
+reconnect:
+  enabled: true
+  grace-seconds: 25
+
+maintenance:
+  enabled: false
+  block-new-joins: false
+
+tutorial:
+  enabled: true
+
+custom-kits:
+  allow-unsafe-enchants: false
+  allow-persistent-custom-data: true # Verified against the original trusted server-kit ItemMeta on load
+  forbidden-materials: []
+
+# Individual kit controls: all modes default true for existing configurations.
+# Staff can use /kitmodes <kit> ranked|queue|duel|custom on|off.

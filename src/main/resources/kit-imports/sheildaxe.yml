@@ -1,0 +1,59 @@
+id: SheildAxe
+type: INVENTORY
+cooldownSeconds: 0
+cooldownOverrides: []
+permission: mcwar.kits.use.sheildaxe
+oneTimeOnly: false
+inventoryLayout:
+  slotMap:
+    '0':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCem5mXmlyUmFZilZKZmJuflxJfXJ5flMLMwJqcX5pXwsDAwMgAANldLwRAAAAA
+    '1':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwsCbm5mXmlyUmFZilZRfzszAmpxfmlfCwMDAyAAArdDzlDYAAAA=
+    '2':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCam5mXmlyUmFZilZKZmJuflxKfWJHKzMCanF+aV8LAwMDIAAA1PUoyPgAAAA==
+    '6':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/1WMMQ7CQAwEFyIkOAqk9Ih/UPMGWuRcTDAKduQzys94H4ooErbdmUlAhf2Fgq7sRUyB+rPFWlrUL1HOTvc4Z7dSGhsrbLK9NQCsElK212DKGmWH44J+kHfc3ga3J+eQnkuajF/2MIPkbuNfJ+E036JB2knT8yKFaV+K1Md1tgAAAA==
+    '8':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwsCfm5mXmlyUmFZilVhUlF/OzMCanF+aV8LAwMDKAAAJSjc1OAAAAA==
+  armor:
+    helmet:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCRm5mXmlyUmFZilZKZmJuflxKfkZqTm1rCzMCanF+aV8LAwMDIAABybzPHQQAAAA==
+    chest:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCTm5mXmlyUmFZilZKZmJuflxKfnJFaXFKQk1iSyszAmpxfmlfCwMDAyAAA8tp0tkUAAAA=
+    legs:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCVm5mXmlyUmFZilZKZmJuflxKfk5qenpmXXszMwJqcX5pXwsDAwMgAAPv0wCFDAAAA
+    boots:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCem5mXmlyUmFZilZKZmJuflxKflJ9fUszMwJqcX5pXwsDAwMgAAJ0jGhVAAAAA
+  offhand:
+    type: ITEM
+    chance: 100.0
+    item:
+      b64: H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQ2sbBwJSZwiCQm5mXmlyUmFZiVZyRmZqTwszAmpxfmlfCwMDAyAAAY1mr+zkAAAA=

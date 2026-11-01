@@ -1,0 +1,34 @@
+id: Sword
+type: INVENTORY
+cooldownSeconds: 0
+cooldownOverrides: []
+permission: mcwar.kits.use.sword
+oneTimeOnly: false
+inventoryLayout:
+  slotMap:
+    '0':
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/0XNQQoCMRBE0dIgSNyJ6F1cewa30iatNpJqSXrwZp5PZjXrx+dnIGF3kZCr9mFOYP/bYm0Vp2bU0uUR52rSnPU2vt5rwqb4xACwysjF28epjJFxXBJleQmjzZBwWGDivau8jU/Mb+APJon66IMAAAA=
+  armor:
+    helmet:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/1XOsQoCQQwE0NFVkLUTEb/F2m+wlZiN3qJJjr3cr/l9njaHxVSPGSYDCdszBV2kDdUN2L03WNaCo1YTbnSPU6mkbuXayUslEtbsowWARUZm195NLIaMw9wR444s9AsJ+xlGuzWhZ7XHNJD+qG8ewvG7gdWUD74lDCufAAAA
+    chest:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/1XOQQoCMQyF4adFkLoTceVJXHsGt0NMo1O0SWkzV/N8jm4G1x/v8UcgYHchp6u0nk2B/XuLdU44lazCje5+TpmKaRp4lO71RS4BG7ZJHcAqIrKVairqPeK47ER5JPXyhYDDApPemtAz62M+CH9Um7mw/1LmNuADDnKev6MAAAA=
+    legs:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/1WOMQoCMRBFvwZBYreIhUex9gy2y5iMMWhmlmT2ap7PrM1i/XiP5wGHw5WMblxbVgGGzx7bHHEuWThUetglZioqcXxzSllSc9gFncUAbDx80DKpsFjzOK0WS3iSWFmAw3EFs9wr06uXesD9oamqcbDfSD8Dvn4rJT6hAAAA
+    boots:
+      type: ITEM
+      chance: 100.0
+      item:
+        b64: H4sIAAAAAAAA/1XOQQoCMQyF4adFkLoT0bu49gxuJZNGDdJkaDNX83yObgbXH+/xZyBhd6Ggq7SubsD+vcVaC05VTbjRPc5FqbqV2+AePWHDPlkAWGVk9jq6iUXPOC4TMX6SRf1CwmGByYYm9FJ7zAfpj8bmIRy/ijkL+ABl1yd0ngAAAA==
