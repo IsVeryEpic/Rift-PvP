@@ -41,6 +41,19 @@ final class SafeTeleport {
       String var5 = var2 ? "matchmaking" : "rtp";
       int var6 = Math.max(0, var4.getInt(var5 + ".min-distance", var2 ? 200 : 10000));
       int var7 = Math.max(var6 + 1, var4.getInt(var5 + ".max-distance", var2 ? 5000 : 200000));
+      // Matchmaking must not waste most of its searches outside a small world border.
+      // This is especially important for Ranked's strict Plains-biome requirement.
+      if (var2) {
+         WorldBorder border = var1.getWorldBorder();
+         Location spawn = var1.getSpawnLocation();
+         Location center = border.getCenter();
+         double half = border.getSize() / 2.0 - 16.0;
+         double usableRadius = half - Math.max(Math.abs(spawn.getX() - center.getX()),
+            Math.abs(spawn.getZ() - center.getZ()));
+         if (usableRadius > var6 + 8) {
+            var7 = Math.min(var7, Math.max(var6 + 1, (int)Math.floor(usableRadius)));
+         }
+      }
       int var8 = Math.min(128, Math.max(1, var4.getInt(var5 + ".max-location-attempts", 32)));
       int var9 = Math.max(1, var4.getInt(var5 + ".max-concurrent-teleports", 4));
       if (this.activeRequests >= var9) {
