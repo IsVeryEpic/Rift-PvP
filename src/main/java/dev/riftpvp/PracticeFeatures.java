@@ -280,6 +280,21 @@ final class PracticeFeatures implements Listener {
             });
          return;
       }
+      if (args.length > 0 && args[0].equalsIgnoreCase("status")) {
+         String kit = rankedWaiting.get(uuid);
+         if (kit == null) {
+            player.sendMessage("§7You are not in Ranked. Use §d/ranked§7 to open the kit selector.");
+            return;
+         }
+         long waited = Math.max(0L, (System.currentTimeMillis() - rankedJoinedAt.getOrDefault(uuid, System.currentTimeMillis())) / 1000L);
+         int count = rankedWaitingCount(kit);
+         player.sendMessage("§5§lRanked Queue §8| §f" + kit + " §7(" + count + " waiting, " + waited + "s)");
+         player.sendMessage(count < 2
+            ? "§7Waiting for another player to select the same kit."
+            : "§7Checking Elo and a safe Plains arena. §fMatching retries every 5s.");
+         player.sendMessage("§7Use §d/ranked leave§7 to exit. Ranked may take longer while preparing a new arena.");
+         return;
+      }
       if (args.length > 0 && args[0].equalsIgnoreCase("leave")) {
          String old = rankedWaiting.remove(uuid);
          rankedJoinedAt.remove(uuid);
@@ -323,8 +338,8 @@ final class PracticeFeatures implements Listener {
          }
          long waitMillis = Math.max(0L, now - rankedJoinedAt.getOrDefault(otherId, now));
          int gap = (int)Math.min(maxGap, baseGap + (waitMillis / 15000L) * extraPer15s);
-         if (Math.abs((long)entrantElo - rating(otherId, kit).elo) > gap) continue;
-         if (!plugin.playerPreferences().pingCompatible(player, other)) continue;
+         if (!rankedEloCompatible(entrantElo, rating(otherId, kit).elo, gap, waitMillis)) continue;
+         if (rankedRespectPing() && !plugin.playerPreferences().pingCompatible(player, other)) continue;
          // Only remove the candidate after a successful match. Failed challenges
          // must not silently discard an eligible player from the ranked queue.
          if (plugin.matchQueue().challenge(other, player, kit, true)) {
@@ -333,8 +348,8 @@ final class PracticeFeatures implements Listener {
             rankedJoinedAt.remove(otherId);
             pendingRanked.put(otherId, true);
             pendingRanked.put(uuid, true);
-            other.sendMessage("§aRanked match found! §7Kit: §d" + kit);
-            player.sendMessage("§aRanked match found! §7Kit: §d" + kit);
+            other.sendMessage("§aRanked match found! §7Kit: §d" + kit + "§7. Preparing a Plains arena...");
+            player.sendMessage("§aRanked match found! §7Kit: §d" + kit + "§7. Preparing a Plains arena...");
             return;
          }
       }
@@ -344,6 +359,18 @@ final class PracticeFeatures implements Listener {
       if (plugin.playerPreferences().allows(player, "queue-notifications")) player.sendMessage(Component.text("Ranked queue joined: " + kit + "  ", NamedTextColor.LIGHT_PURPLE)
          .append(Component.text("[LEAVE QUEUE]", NamedTextColor.RED)
             .clickEvent(ClickEvent.runCommand("/ranked leave"))));
+   }
+
+   /** Ranked defaults to not inheriting casual RTPQ ping limits, which can silently block small queues. */
+   private boolean rankedRespectPing() {
+      return plugin.getConfig().getBoolean("ranked.matchmaking.respect-ping-preferences", false);
+   }
+
+   /** Avoid two players waiting forever at different Elo in a low-population server. */
+   private boolean rankedEloCompatible(int aElo, int bElo, int gap, long waitMillis) {
+      if (Math.abs((long)aElo - bElo) <= gap) return true;
+      int relaxAfter = plugin.getConfig().getInt("ranked.matchmaking.allow-any-elo-after-seconds", 60);
+      return relaxAfter > 0 && waitMillis >= (long)relaxAfter * 1000L;
    }
 
    /** Re-check waiting pairs as Elo windows widen, even when nobody new joins. */
@@ -379,13 +406,13 @@ final class PracticeFeatures implements Listener {
                   long oldestWait = Math.max(now - rankedJoinedAt.getOrDefault(oneId, now),
                      now - rankedJoinedAt.getOrDefault(twoId, now));
                   int gap = (int)Math.min(ceiling, base + Math.max(0L, oldestWait / 15000L) * increase);
-                  if (Math.abs((long)rating(oneId, kit).elo - rating(twoId, kit).elo) > gap) continue;
-                  if (!plugin.playerPreferences().pingCompatible(one, two)) continue;
+                  if (!rankedEloCompatible(rating(oneId, kit).elo, rating(twoId, kit).elo, gap, oldestWait)) continue;
+                  if (rankedRespectPing() && !plugin.playerPreferences().pingCompatible(one, two)) continue;
                   if (plugin.matchQueue().challenge(one, two, kit, true)) {
                      pendingRanked.put(oneId, true);
                      pendingRanked.put(twoId, true);
-                     one.sendMessage("§aRanked match found! §7Kit: §d" + kit);
-                     two.sendMessage("§aRanked match found! §7Kit: §d" + kit);
+                     one.sendMessage("§aRanked match found! §7Kit: §d" + kit + "§7. Preparing a Plains arena...");
+                     two.sendMessage("§aRanked match found! §7Kit: §d" + kit + "§7. Preparing a Plains arena...");
                      matched = true;
                      break;
                   }
