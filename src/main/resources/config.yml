@@ -57,7 +57,8 @@ matchmaking:
   countdown-seconds: 3
   # Choose and preload both safe spawn positions before the teleport countdown.
   preload-retries: 8
-  # After both teleports complete, block attacks and horizontal movement for 3-2-1.
+  # Ranked ONLY: protected 3-2-1 and arrival protection.
+  # Normal duels / RTPQ have instant vanilla hits as soon as they arrive.
   in-arena-countdown-seconds: 3
   arrival-protection-seconds: 3
   players-per-match: 2
@@ -283,6 +284,10 @@ ranked:
     initial-elo-gap: 150
     elo-gap-per-15s: 50
     maximum-elo-gap: 600
+    # Avoid infinite waits in low-population Ranked queues.
+    allow-any-elo-after-seconds: 60
+    # Casual /queueprefs ping limits do not stop Ranked from pairing by default.
+    respect-ping-preferences: false
   placements: 5
   tier-base-elo: 1000
   tier-step: 100
