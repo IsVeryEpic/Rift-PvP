@@ -233,10 +233,12 @@ final class MatchQueue implements Listener {
    private Location selectSecondSpot(Location first, int height, boolean rankedMatch) {
       World world = first.getWorld();
       int x = first.getBlockX(), z = first.getBlockZ();
-      int spread = Math.max(2, Math.min(8, plugin.getConfig().getInt("matchmaking.separation-blocks", 3)));
+      // Ten blocks minimum (previous builds saved 3); keeps opponents out of immediate melee range.
+      // Searches within the already-loaded chunk, avoiding synchronous chunk generation during pairing.
+      int spread = Math.max(10, Math.min(12, plugin.getConfig().getInt("matchmaking.separation-blocks", 10)));
       int[][] offsets = {{1, 0}, {0, 1}, {-1, 0}, {0, -1},
                          {1, 1}, {-1, 1}, {1, -1}, {-1, -1}};
-      for (int distance = spread; distance <= 11; distance++) {
+      for (int distance = spread; distance <= Math.max(12, spread); distance++) {
          for (int[] offset : offsets) {
             int nx = x + offset[0] * distance, nz = z + offset[1] * distance;
             // SafeTeleport.findLanding never forces a synchronous load of a new chunk.
