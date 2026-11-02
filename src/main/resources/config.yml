@@ -62,7 +62,9 @@ matchmaking:
   in-arena-countdown-seconds: 3
   arrival-protection-seconds: 3
   players-per-match: 2
-  separation-blocks: 3
+  # Opponents face each other at least 10 blocks apart (previously 3).
+  # Valid practical range: 10-12; the partner spot must be safe and in a loaded chunk.
+  separation-blocks: 10
   active-match-timeout-seconds: 0 # legacy option; active fights no longer auto-expire
   location-separation-blocks: 250 # Minimum; active fights and lobby stay at least 250 blocks apart
   max-location-attempts: 32
