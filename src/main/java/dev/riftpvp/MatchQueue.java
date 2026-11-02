@@ -402,8 +402,15 @@ final class MatchQueue implements Listener {
 
             if (var10 != null) {
                this.matchCenters.put(var1.getUniqueId(), var3.clone());
-               this.plugin.combat().protectArrival(var1);
-               this.plugin.combat().protectArrival(var2);
+               // Arrival immunity belongs to Ranked only. Casual duels and RTPQ have instant PvP.
+               boolean rankedMatch = this.rankedFightStarts.contains(var1.getUniqueId());
+               if (rankedMatch) {
+                  this.plugin.combat().protectArrival(var1);
+                  this.plugin.combat().protectArrival(var2);
+               } else {
+                  this.plugin.combat().clearArrival(var1);
+                  this.plugin.combat().clearArrival(var2);
+               }
                var9.add(0.0, var6, 0.0);
                var10.add(0.0, var6, 0.0);
                double var22 = var10.getX() - var9.getX();
@@ -431,8 +438,13 @@ final class MatchQueue implements Listener {
                               this.plugin.message(var2, "queue-failed");
                               this.endPair(var1.getUniqueId());
                            } else if (var1.isOnline() && var2.isOnline()) {
-                              this.plugin.combat().protectArrival(var1);
-                              this.plugin.combat().protectArrival(var2);
+                              if (rankedMatch) {
+                                 this.plugin.combat().protectArrival(var1);
+                                 this.plugin.combat().protectArrival(var2);
+                              } else {
+                                 this.plugin.combat().clearArrival(var1);
+                                 this.plugin.combat().clearArrival(var2);
+                              }
                               boolean var11x = CustomKits.isCustom(var4) || this.plugin.getConfig().getBoolean("matchmaking.auto-equip-kit", true);
                               if (var11x) {
                                  if (!(CustomKits.isCustom(var4) ? plugin.customKits().exists(var4) : this.plugin.kits().hasKit(var4))) {
@@ -478,11 +490,23 @@ final class MatchQueue implements Listener {
                               UUID releaseId = var1.getUniqueId();
                               Bukkit.getScheduler().runTaskLater(plugin, () -> releaseLocation(releaseId), 40L);
                               if (this.plugin.practice() != null) this.plugin.practice().started(var1, var2, var4);
-                              this.plugin.message(var1, "queue-teleported");
-                              this.plugin.message(var2, "queue-teleported");
+                              if (rankedMatch) {
+                                 this.plugin.message(var1, "queue-teleported");
+                                 this.plugin.message(var2, "queue-teleported");
+                              } else {
+                                 var1.sendMessage("§aFight started! §7No hit delay or damage immunity.");
+                                 var2.sendMessage("§aFight started! §7No hit delay or damage immunity.");
+                              }
                               this.plugin.sounds().play(var1, "teleport");
                               this.plugin.sounds().play(var2, "teleport");
-                              this.protectFightStart(var1, var2);
+                              if (rankedMatch) {
+                                 this.protectFightStart(var1, var2);
+                              } else {
+                                 var1.sendTitle("§a§lFIGHT!", "§7Good luck", 0, 16, 6);
+                                 var2.sendTitle("§a§lFIGHT!", "§7Good luck", 0, 16, 6);
+                                 this.plugin.sounds().play(var1, "match-start");
+                                 this.plugin.sounds().play(var2, "match-start");
+                              }
                               // Active duels/ranked fights have no fixed timeout. A 600-second
                               // timer previously expired valid fights even when both players were
                               // online and moving. MatchRecovery still protects crash/restart cases,
@@ -566,7 +590,12 @@ final class MatchQueue implements Listener {
       }
    }
 
-   /** Protect players and prevent outside interference during RiftPvP matches. */
+   private boolean isRankedCombatant(UUID id) {
+      UUID partner = opponents.get(id);
+      return rankedFightStarts.contains(id) || partner != null && rankedFightStarts.contains(partner);
+   }
+
+   /** Ranked-only hit protection and third-party PvP filtering. */
    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
    public void onFightDamage(EntityDamageByEntityEvent event) {
       if (!(event.getEntity() instanceof Player victim)) return;
@@ -578,6 +607,10 @@ final class MatchQueue implements Listener {
          if (shooter instanceof Player p) attacker = p;
       }
       UUID victimId = victim.getUniqueId();
+      // Only ranked fights use opponent-only hit filtering / anti-hit protection.
+      // Normal duels and RTPQ must use vanilla PvP damage rules.
+      if (!isRankedCombatant(victimId)
+            && (attacker == null || !isRankedCombatant(attacker.getUniqueId()))) return;
       if (startProtected.contains(victimId) || attacker != null && startProtected.contains(attacker.getUniqueId())) {
          event.setCancelled(true);
          return;
