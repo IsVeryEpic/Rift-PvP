@@ -274,15 +274,19 @@ final class MatchQueue implements Listener {
                      MatchQueue.this.endPair(var2);
                   } else if (this.remaining == 0) {
                      this.cancel();
-                     var1x.sendTitle("§d§lRTP Queue", "§fFinding your arena...", 0, 30, 5);
-                     var2x.sendTitle("§d§lRTP Queue", "§fFinding your arena...", 0, 30, 5);
+                     String title = MatchQueue.this.rankedFightStarts.contains(var2) ? "§5§lRANKED" : "§d§lMATCH";
+                     var1x.sendTitle(title, "§fFinding your arena...", 0, 30, 5);
+                     var2x.sendTitle(title, "§fFinding your arena...", 0, 30, 5);
                      MatchQueue.this.startMatch(var1, var2, var3, 0);
                   } else {
                      String var3x = "§eTeleporting in §f§l" + this.remaining + "§e...";
-                     var1x.sendTitle("§d§lRTP Queue", var3x, 0, 25, 0);
-                     var2x.sendTitle("§d§lRTP Queue", var3x, 0, 25, 0);
-                     var1x.sendActionBar(Component.text("RTP Queue: teleporting in " + this.remaining + "s"));
-                     var2x.sendActionBar(Component.text("RTP Queue: teleporting in " + this.remaining + "s"));
+                     boolean ranked = MatchQueue.this.rankedFightStarts.contains(var2);
+                     String title = ranked ? "§5§lRANKED" : "§d§lMATCH";
+                     var1x.sendTitle(title, var3x, 0, 25, 0);
+                     var2x.sendTitle(title, var3x, 0, 25, 0);
+                     String action = ranked ? "Ranked: teleporting in " : "Match: teleporting in ";
+                     var1x.sendActionBar(Component.text(action + this.remaining + "s"));
+                     var2x.sendActionBar(Component.text(action + this.remaining + "s"));
                      float var4x = 1.0F + (var4 - this.remaining) * 0.14F;
                      MatchQueue.this.plugin.sounds().play(var1x, "countdown", var4x);
                      MatchQueue.this.plugin.sounds().play(var2x, "countdown", var4x);
