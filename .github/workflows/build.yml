@@ -33,6 +33,7 @@ jobs:
           python tools/stage7_audit.py
           python tools/stage8_audit.py
           python tools/test_postmatch_ui.py
+          python tools/test_ranked_match_protection.py
       - name: Upload compiled plugin
         uses: actions/upload-artifact@v4
         with:
