@@ -69,6 +69,11 @@ final class CombatTag implements Listener {
       return false;
    }
 
+   /** Remove protection left by a previous teleport before an instant-start casual fight. */
+   void clearArrival(Player player) {
+      landingProtection.remove(player.getUniqueId());
+   }
+
    void protectArrival(Player var1) {
       long var2 = Math.max(0, this.plugin.getConfig().getInt("matchmaking.arrival-protection-seconds", 3)) * 1000L;
       this.landingProtection.put(var1.getUniqueId(), System.currentTimeMillis() + var2);
