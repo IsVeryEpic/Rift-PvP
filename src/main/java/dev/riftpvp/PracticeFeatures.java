@@ -607,6 +607,21 @@ final class PracticeFeatures implements Listener {
          .computeIfAbsent(kit, ignored -> new Rating(0, 0, 1000));
    }
 
+   /** Primary-thread ranked snapshot; only verified local RiftPvP Elo and tiers. */
+   Map<UUID, Map<String, WebsiteSync.KitRanking>> websiteRankingsSnapshot() {
+      Map<UUID, Map<String, WebsiteSync.KitRanking>> snapshot = new HashMap<>();
+      for (Map.Entry<UUID, Map<String, Rating>> player : ratings.entrySet()) {
+         Map<String, WebsiteSync.KitRanking> perKit = new HashMap<>();
+         for (Map.Entry<String, Rating> kit : player.getValue().entrySet()) {
+            Rating rating = kit.getValue();
+            perKit.put(kit.getKey(),
+               new WebsiteSync.KitRanking(rating.elo, rating.wins, rating.losses, tier(rating)));
+         }
+         snapshot.put(player.getKey(), perKit);
+      }
+      return snapshot;
+   }
+
    private void save() {
       YamlConfiguration data = new YamlConfiguration();
       for (Map.Entry<UUID, Map<String, Rating>> entry : ratings.entrySet()) {

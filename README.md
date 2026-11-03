@@ -28,6 +28,46 @@ GitHub Actions builds on updates to `main` and stores an installable JAR under *
 
 All persistent kit, rank, leaderboard, backup and match data belongs in `plugins/RiftPvP/`, not in this repository.
 
+## Website sync (optional)
+
+RiftPvP includes an **outbound, one-way** website API adapter. It is **disabled by default**. It never accepts website-issued game commands, changes staff permissions, or writes ranks/Elo back into the server.
+
+Configure `plugins/RiftPvP/config.yml` on the **server**, not in GitHub:
+
+```yaml
+website-sync:
+  enabled: true
+  endpoint: 'https://your-domain.example/api/riftpvp/sync'
+  api-key: 'a-long-random-shared-secret'
+  server-id: 'main'
+  interval-seconds: 60
+```
+
+Run `/riftpvp reload`, then `/riftpvp websync now` and `/riftpvp websync status` (OP/console only). The plugin sends a full snapshot in JSON via an asynchronous HTTPS POST. One request at a time prevents overlap; there are request timeouts and no HTTP redirects. A failed request does **not** affect gameplay, stored stats or match results. The API must accept `Authorization: Bearer <api-key>`, respond with HTTP 2xx only after committing data, and use UPSERTs on `(server_id, uuid)` to make repeats idempotent.
+
+**JSON schema v1:**
+
+```json
+{
+  "schema_version": 1,
+  "server_id": "main",
+  "generated_at": "2026-11-03T12:00:00Z",
+  "players": [{
+    "uuid": "f84c6a79-5d2b-466d-a337-7199e7a99465",
+    "name": "ExamplePlayer",
+    "rank": "member",
+    "kills": 7,
+    "deaths": 3,
+    "playtime_ms": 234000,
+    "kits": {"sword": {"elo": 1048, "wins": 3, "losses": 1, "tier": "Unranked 4/5"}}
+  }]
+}
+```
+
+The receiver should validate `schema_version`, token, body size and each value. Reject unauthorized requests; do not expose the API key in frontend JavaScript. Public leaderboards can read the synchronized server-side database. Never use this write endpoint from a browser.
+
+**Important:** This repository has no connected website/backend or deployed sync API. The bridge becomes operational only after you deploy a matching receiving endpoint and configure its URL/secret. `config.yml` and scheduled RiftPvP backup archives may contain secrets and must remain private.
+
 ## Player features
 
 - Rift Menu, RTPQ, Ranked (Plains and Sunflower Plains), duels and rematches

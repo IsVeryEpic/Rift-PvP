@@ -76,6 +76,7 @@ public final class RiftPvpPlugin extends JavaPlugin implements CommandExecutor, 
    private StaffAudit staffAudit;
    private DiscordBridge discord;
    private DataBackups dataBackups;
+   private WebsiteSync websiteSync;
    private MaintenanceControl maintenance;
    private KitModes kitModes;
    private FirstJoinTutorial firstJoinTutorial;
@@ -136,6 +137,7 @@ public final class RiftPvpPlugin extends JavaPlugin implements CommandExecutor, 
       this.adminPanel = new AdminPanel(this);
       this.trims = new VipTrims(this);
       this.practice = new PracticeFeatures(this);
+      this.websiteSync = new WebsiteSync(this);
       this.kitCreator = new KitCreator(this);
       this.teleportRequests = new TeleportRequests(this);
       this.staffTools = new StaffTools(this);
@@ -180,6 +182,7 @@ public final class RiftPvpPlugin extends JavaPlugin implements CommandExecutor, 
       Bukkit.getScheduler().runTaskTimer(this, this.lobbyHotbar::tick, 25L, 40L);
       this.groundEntityCleanup.start();
       this.dataBackups.start();
+      this.websiteSync.start();
       this.getLogger()
          .info(
             "Rift PvP loaded " + this.kits.configuredIds().stream().filter(this.kits::hasKit).count() + " kits. Data files are isolated from Minecraft worlds."
@@ -187,6 +190,7 @@ public final class RiftPvpPlugin extends JavaPlugin implements CommandExecutor, 
    }
 
    public void onDisable() {
+      if (this.websiteSync != null) this.websiteSync.stop();
       if (this.groundEntityCleanup != null) this.groundEntityCleanup.stop();
       if (this.sidebar != null) {
          this.sidebar.finishSessions();
@@ -847,6 +851,9 @@ public final class RiftPvpPlugin extends JavaPlugin implements CommandExecutor, 
                case "backup":
                   this.dataBackups.command(var1, var2);
                   break;
+               case "websync":
+                  this.websiteSync.command(var1, var2);
+                  break;
                case "cleanup":
                   this.groundEntityCleanup.command(var1, var2);
                   break;
@@ -868,7 +875,8 @@ public final class RiftPvpPlugin extends JavaPlugin implements CommandExecutor, 
                   this.reloadConfig();
                   this.maintenance.reload();
                   this.groundEntityCleanup.start();
-      this.dataBackups.start();
+                  this.dataBackups.start();
+                  this.websiteSync.start();
                   this.migratePreviousDefaults();
                   this.migrateNewFeatures();
                   this.migrateNpcSkins();
@@ -899,7 +907,7 @@ public final class RiftPvpPlugin extends JavaPlugin implements CommandExecutor, 
                   }
                   break;
                default:
-                  var1.sendMessage("Usage: /riftpvp <doctor|audit|integrity|backup|maintenance|toggles|cleanup|reload|setlobby|kit|rank|npc>");
+                  var1.sendMessage("Usage: /riftpvp <doctor|audit|integrity|backup|maintenance|toggles|cleanup|websync|reload|setlobby|kit|rank|npc>");
             }
          } catch (IOException | IllegalArgumentException var7) {
             var1.sendMessage(ChatColor.RED + "Rift PvP: " + var7.getMessage());
@@ -1205,9 +1213,10 @@ public final class RiftPvpPlugin extends JavaPlugin implements CommandExecutor, 
             if (!this.ranks.isAdmin(var1)) {
                yield List.of();
             } else if (var4.length == 1) {
-               yield List.of("doctor", "audit", "integrity", "backup", "maintenance", "toggles", "cleanup", "reload", "setlobby", "kit", "rank", "npc");
+               yield List.of("doctor", "audit", "integrity", "backup", "maintenance", "toggles", "cleanup", "websync", "reload", "setlobby", "kit", "rank", "npc");
             } else if (var4.length == 2) {
                yield switch (var4[0].toLowerCase(Locale.ROOT)) {
+                  case "websync" -> List.of("status", "now");
                   case "cleanup" -> List.of("status", "preview", "now");
                   case "backup" -> List.of("list", "now", "restore");
                   case "maintenance" -> List.of("on", "off", "status");
