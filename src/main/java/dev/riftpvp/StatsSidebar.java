@@ -431,6 +431,18 @@ final class StatsSidebar implements Listener {
       this.save();
    }
 
+   /** Primary-thread snapshot of all stored players, including online playtime. */
+   Map<UUID, WebsiteSync.PlayerStats> websiteSnapshot() {
+      Map<UUID, WebsiteSync.PlayerStats> snapshot = new HashMap<>();
+      for (Entry<UUID, StatsSidebar.Record> entry : this.stats.entrySet()) {
+         UUID id = entry.getKey();
+         StatsSidebar.Record record = entry.getValue();
+         snapshot.put(id, new WebsiteSync.PlayerStats(
+            this.names.get(id), record.kills, record.deaths, this.playtimeMillis(id)));
+      }
+      return snapshot;
+   }
+
    record LeaderboardEntry(String name, int kills, int deaths, long playtimeMillis) {
    }
 
