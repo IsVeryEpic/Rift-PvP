@@ -306,6 +306,18 @@ features:
   ranked: true
   rekit-alerts: true
 
+# Opt-in outbound website API sync. Does not grant the website game-admin access.
+# POSTs full player snapshots (UUID, name, K/D, playtime, rank and per-kit
+# ranked Elo/W-L/tier). The website must implement a Bearer-token protected
+# endpoint that UPSERTS by server_id + UUID. No incoming commands are accepted.
+# Keep api-key secret: config.yml and RiftPvP backups contain it.
+website-sync:
+  enabled: false
+  endpoint: '' # HTTPS URL, e.g. https://your-domain.example/api/riftpvp/sync
+  api-key: '' # Random token, identical to the receiving API's configured secret
+  server-id: 'main'
+  interval-seconds: 60 # Clamped to 30s minimum
+
 # Opt-in Discord notifications. Keep the webhook URL secret and do not share config.yml.
 discord:
   enabled: false
