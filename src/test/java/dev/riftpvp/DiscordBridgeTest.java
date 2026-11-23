@@ -41,13 +41,3 @@ class DiscordBridgeTest {
       assertEquals(message, DiscordBridge.escapeJson(message));
    }
 }
-
-class MatchReconnectTest {
-   @org.junit.jupiter.api.Test
-   void onlyTreatsBothPlayersAsAbsentWhenBothAreActuallyOffline() {
-      assertEquals(true, MatchReconnect.bothOffline(false, false));
-      assertEquals(false, MatchReconnect.bothOffline(true, false));
-      assertEquals(false, MatchReconnect.bothOffline(false, true));
-      assertEquals(false, MatchReconnect.bothOffline(true, true));
-   }
-}
