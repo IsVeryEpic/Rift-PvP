@@ -2,12 +2,20 @@
 target/
 *.class
 *.log
+*.jar
+*.zip
+*.tmp
+*.new
+*.bak
+*.backup
+
 # Local runtime data / server secrets
 plugins/
 run/
 server/
 .env
 .env.*
+
 # IDE and OS
 .idea/
 .vscode/
