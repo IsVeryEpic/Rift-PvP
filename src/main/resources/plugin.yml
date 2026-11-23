@@ -2,7 +2,7 @@ name: RiftPvP
 version: 1.3.4-SNAPSHOT
 main: dev.riftpvp.RiftPvpPlugin
 api-version: '26.1'
-description: Configurable kit queues, random teleport, combat tagging, healing, and stats.
+description: Minecraft PvP practice plugin with kit queues, ranked matchmaking, duels, RTP, player stats and staff tools.
 softdepend: [KitsCratesPlus]
 commands:
   riftmenu:
