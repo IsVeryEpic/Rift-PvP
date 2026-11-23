@@ -3,6 +3,7 @@
 [![Build](https://github.com/IsVeryEpic/Rift-PvP/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/IsVeryEpic/Rift-PvP/actions/workflows/build.yml)
 ![Java](https://img.shields.io/badge/Java-25-orange)
 ![Paper](https://img.shields.io/badge/Paper-26.1.2-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 A custom Minecraft PvP practice plugin featuring ranked kit matchmaking, RTP queues, duels, custom kits, Kit Room, lobby menus, player profiles and staff tools.
 
@@ -87,3 +88,7 @@ Please report reproducible bugs with the server version, plugin build, steps to 
 - `.github/workflows/build.yml` — CI build and test-artifact workflow
 
 This repository excludes server backups, runtime data, compiled JARs, archived source ZIPs and transfer files. Older development snapshots remain available in Git history.
+
+## License
+
+RiftPvP is licensed under the [MIT License](LICENSE).
