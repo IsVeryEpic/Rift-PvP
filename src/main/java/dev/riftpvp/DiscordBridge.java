@@ -73,7 +73,7 @@ final class DiscordBridge {
    }
 
    /** Escapes every JSON control character, not just common chat characters. */
-   private static String escapeJson(String value) {
+   static String escapeJson(String value) {
       StringBuilder escaped = new StringBuilder(value.length() + 16);
       for (int i = 0; i < value.length(); i++) {
          char c = value.charAt(i);
