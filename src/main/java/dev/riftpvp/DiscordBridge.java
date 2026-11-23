@@ -38,13 +38,40 @@ final class DiscordBridge {
             conn.setInstanceFollowRedirects(false);
             conn.setDoOutput(true);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            String json = "{\"content\":\"" + message.replace("\\", "\\\\").replace("\"", "\\\"")
-               .replace("\t", " ") + "\",\"allowed_mentions\":{\"parse\":[]}}";
+            String json = "{\"content\":\"" + escapeJson(message)
+               + "\",\"allowed_mentions\":{\"parse\":[]}}";
             try (var stream = conn.getOutputStream()) { stream.write(json.getBytes(StandardCharsets.UTF_8)); }
             int code = conn.getResponseCode();
             if (code < 200 || code >= 300) plugin.getLogger().warning("Discord webhook HTTP " + code + " (" + type + ")");
          } catch (Exception error) { plugin.getLogger().warning("Discord webhook unavailable: " + error.getClass().getSimpleName()); }
          finally { if (conn != null) conn.disconnect(); inFlight.decrementAndGet(); }
       });
+   }
+
+   /** Escapes every JSON control character, not just common chat characters. */
+   static String escapeJson(String value) {
+      StringBuilder escaped = new StringBuilder(value.length() + 16);
+      for (int i = 0; i < value.length(); i++) {
+         char c = value.charAt(i);
+         switch (c) {
+            case '"' -> escaped.append("\\\"");
+            case '\\' -> escaped.append("\\\\");
+            case '\b' -> escaped.append("\\b");
+            case '\f' -> escaped.append("\\f");
+            case '\n' -> escaped.append("\\n");
+            case '\r' -> escaped.append("\\r");
+            case '\t' -> escaped.append("\\t");
+            default -> {
+               if (c < 0x20) {
+                  escaped.append("\\u00");
+                  escaped.append(Character.forDigit((c >> 4) & 0xF, 16));
+                  escaped.append(Character.forDigit(c & 0xF, 16));
+               } else {
+                  escaped.append(c);
+               }
+            }
+         }
+      }
+      return escaped.toString();
    }
 }
