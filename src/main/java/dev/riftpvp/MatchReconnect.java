@@ -90,7 +90,11 @@ final class MatchReconnect implements Listener {
             plugin.matchRecovery().recoverSoon(remaining);
         }
     }
-    static boolean bothOffline(boolean firstOnline, boolean secondOnline) {\n        return !firstOnline && !secondOnline;\n    }\n\n    private void resume() {
+    static boolean bothOffline(boolean firstOnline, boolean secondOnline) {
+        return !firstOnline && !secondOnline;
+    }
+
+    private void resume() {
         if (offline.isEmpty() || !plugin.isEnabled()) return;
         // Resume only once the specific opponent is still in the same managed fight.
         for (UUID id : new HashSet<>(offline.keySet())) {
