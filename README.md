@@ -87,8 +87,8 @@ Please report reproducible bugs with the server version, plugin build, steps to 
 - `tools/` — source audits and test scripts
 - `.github/workflows/build.yml` — CI build and test-artifact workflow
 
-This repository excludes server backups, runtime data, compiled JARs, archived source ZIPs and transfer files. Older development snapshots remain available in Git history.
+The current branch excludes server backups, runtime data, compiled JARs, archived source ZIPs and transfer files. Historical commits may still contain earlier development artefacts, so the Git history must be reviewed before the repository is made public.
 
 ## License
 
-RiftPvP is licensed under the [MIT License](LICENSE).
+The current source is licensed under the [MIT License](LICENSE). Future releases may be offered under separate commercial terms. Any change would apply prospectively and would not revoke the MIT rights already granted for versions distributed under that license.
