@@ -60,7 +60,11 @@ final class MatchReconnect implements Listener {
         if (System.currentTimeMillis() < waiting.deadline()) return;
         UUID opponent = waiting.opponent();
         offline.remove(player);
-        if (offline.containsKey(opponent)) {
+        Player timedOutPlayer = Bukkit.getPlayer(player);
+        Player otherPlayer = Bukkit.getPlayer(opponent);
+        boolean timedOutOnline = timedOutPlayer != null && timedOutPlayer.isOnline();
+        boolean opponentOnline = otherPlayer != null && otherPlayer.isOnline();
+        if (bothOffline(timedOutOnline, opponentOnline)) {
             // Neither contestant returned. No arbitrary winner or Elo loss.
             plugin.practice().expireMatch(player);
             plugin.matchQueue().expireDisconnected(player);
@@ -68,7 +72,7 @@ final class MatchReconnect implements Listener {
             return;
         }
         // Only a genuinely offline player forfeits after the grace period.
-        if (Bukkit.getPlayer(player) != null && Bukkit.getPlayer(player).isOnline()) {
+        if (timedOutOnline) {
             // Reconnected but teleport did not complete before deadline: cancel, never punish as a dodge.
             plugin.practice().expireMatch(player);
             plugin.matchQueue().expireDisconnected(player);
@@ -86,6 +90,10 @@ final class MatchReconnect implements Listener {
             plugin.matchRecovery().recoverSoon(remaining);
         }
     }
+    static boolean bothOffline(boolean firstOnline, boolean secondOnline) {
+        return !firstOnline && !secondOnline;
+    }
+
     private void resume() {
         if (offline.isEmpty() || !plugin.isEnabled()) return;
         // Resume only once the specific opponent is still in the same managed fight.
